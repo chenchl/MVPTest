@@ -1,13 +1,19 @@
 package com.ccl.exp.mvptest.ui.activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.ccl.exp.mvptest.R;
+import com.ccl.exp.mvptest.event.MyEvent;
 import com.ccl.exp.mvptest.presenter.LoginPresenterImpl;
+import com.ccl.exp.mvptest.utils.ToastUtils;
 import com.ccl.exp.mvptest.view.ILoginView;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -51,6 +57,7 @@ public class MainActivity extends BaseMvpActivity implements ILoginView {
     public void onLoginResult(Boolean result, String s) {
         btnLoginLogin.setEnabled(true);
         btnLoginClear.setEnabled(true);
+        startActivity(new Intent(this,SecondactActivity.class));
     }
 
     @Override
@@ -58,15 +65,21 @@ public class MainActivity extends BaseMvpActivity implements ILoginView {
         progressLogin.setVisibility(visibility);
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onRecive(MyEvent event) {
+        ToastUtils.showToast(this,event.getMsg());
+    }
+
     @Override
     public void onError(String msg) {
         btnLoginLogin.setEnabled(true);
         btnLoginClear.setEnabled(true);
+        startActivity(new Intent(this,SecondactActivity.class));
     }
 
     @Override
     public void initBefore() {
-
+        needEventBus = true;
     }
 
     @Override
@@ -97,4 +110,5 @@ public class MainActivity extends BaseMvpActivity implements ILoginView {
     public String setTag() {
         return "main";
     }
+
 }

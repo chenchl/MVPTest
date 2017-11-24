@@ -11,6 +11,8 @@ import android.view.WindowManager;
 import com.ccl.exp.mvptest.utils.AppManager;
 import com.ccl.exp.mvptest.utils.LogUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -22,6 +24,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseAct
 
 
     private Unbinder unbinder;
+    protected boolean needEventBus = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,6 +46,8 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseAct
         AppManager.getInstance().addActivity(this);
         initView();
         initdata();
+        if (needEventBus)
+            EventBus.getDefault().register(this);
     }
 
     @Override
@@ -56,8 +61,11 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseAct
     protected void onDestroy() {
         super.onDestroy();
         LogUtil.i(this, "onDestroy");
-        if (unbinder != null)
+        if (needEventBus)
+            EventBus.getDefault().unregister(this);
+        if (unbinder != null) {
             unbinder.unbind();
+        }
         AppManager.getInstance().removeActivity(this);
     }
 }
