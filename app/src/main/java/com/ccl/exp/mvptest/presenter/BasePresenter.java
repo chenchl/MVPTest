@@ -17,4 +17,6 @@ public abstract class BasePresenter<V extends IBaseView> {
     public void detach() {
         mView = null;
     }
+
+    public abstract void cancelHttp();
 }

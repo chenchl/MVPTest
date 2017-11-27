@@ -58,6 +58,7 @@ public class MainActivity extends BaseMvpActivity implements ILoginView {
         btnLoginLogin.setEnabled(true);
         btnLoginClear.setEnabled(true);
         startActivity(new Intent(this,SecondactActivity.class));
+        ToastUtils.showToast(this,s);
     }
 
     @Override
@@ -75,6 +76,7 @@ public class MainActivity extends BaseMvpActivity implements ILoginView {
         btnLoginLogin.setEnabled(true);
         btnLoginClear.setEnabled(true);
         startActivity(new Intent(this,SecondactActivity.class));
+        ToastUtils.showToast(this,msg);
     }
 
     @Override
@@ -111,4 +113,9 @@ public class MainActivity extends BaseMvpActivity implements ILoginView {
         return "main";
     }
 
+    @Override
+    public void onBackPressed() {
+        loginPresenter.cancelHttp();
+        //super.onBackPressed();
+    }
 }

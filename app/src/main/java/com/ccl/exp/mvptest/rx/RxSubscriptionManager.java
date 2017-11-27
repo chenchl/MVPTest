@@ -1,6 +1,7 @@
 package com.ccl.exp.mvptest.rx;
 
-import android.util.ArrayMap;
+
+import android.support.v4.util.ArrayMap;
 
 import org.reactivestreams.Subscription;
 

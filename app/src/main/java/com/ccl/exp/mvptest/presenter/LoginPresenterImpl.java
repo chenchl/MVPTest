@@ -18,6 +18,7 @@ import com.ccl.exp.mvptest.net.params.PostParams;
 import com.ccl.exp.mvptest.net.response.BaseResponse;
 import com.ccl.exp.mvptest.rx.NormalSubcriber;
 import com.ccl.exp.mvptest.rx.RxManager;
+import com.ccl.exp.mvptest.rx.RxSubscriptionManager;
 import com.ccl.exp.mvptest.utils.CommonUtils;
 import com.ccl.exp.mvptest.utils.LogUtil;
 import com.ccl.exp.mvptest.utils.MD5Util;
@@ -125,8 +126,14 @@ public class LoginPresenterImpl extends BasePresenter<ILoginView> implements ILo
                 LogUtil.e(this, loginModel.toString());
                 setProgressBarVisiblity(View.INVISIBLE);
                 mView.onLoginResult(true, loginModel.getStudentName());
-                ToastUtils.showToast(mView.getContext(), loginModel.toString());
             }
         });
+    }
+
+    @Override
+    public void cancelHttp() {
+        RxSubscriptionManager.getsInstance().cancel(UserLogin.class.getSimpleName());
+        setProgressBarVisiblity(View.INVISIBLE);
+        mView.onError("取消请求");
     }
 }

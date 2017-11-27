@@ -2,12 +2,8 @@ package com.ccl.exp.mvptest.rx;
 
 import android.content.Context;
 
-import com.ccl.exp.mvptest.utils.ToastUtils;
-
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
-
-import java.io.IOException;
 
 /**
  * Created by ccl on 2017/11/4.
@@ -48,10 +44,6 @@ public abstract class NormalSubcriber<T> implements Subscriber<T> {
 
     @Override
     public void onError(Throwable t) {
-        if (t instanceof IOException)
-            ToastUtils.showToast(mContext, "网络链接异常");
-        else
-            ToastUtils.showToast(mContext, t.getMessage());
         cancelLoading();
         _onError(t);
         RxSubscriptionManager.getsInstance().remove(tag);

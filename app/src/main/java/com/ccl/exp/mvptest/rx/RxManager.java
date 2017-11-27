@@ -16,7 +16,7 @@ import io.reactivex.functions.Function;
 
 public class RxManager {
 
-    private static RxManager instance;
+    private static volatile RxManager instance;
 
     private RxManager() {
     }

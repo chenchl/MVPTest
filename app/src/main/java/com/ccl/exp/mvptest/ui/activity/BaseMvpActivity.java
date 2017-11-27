@@ -31,6 +31,7 @@ public abstract class BaseMvpActivity extends BaseActivity implements IBaseView 
     @Override
     protected void onDestroy() {
         for (BasePresenter p : mPresenters) {
+            p.cancelHttp();
             p.detach();
         }
         mPresenters.clear();
