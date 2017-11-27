@@ -11,12 +11,16 @@ import com.ccl.exp.mvptest.event.MyEvent;
 import com.ccl.exp.mvptest.presenter.LoginPresenterImpl;
 import com.ccl.exp.mvptest.utils.ToastUtils;
 import com.ccl.exp.mvptest.view.ILoginView;
+import com.jakewharton.rxbinding2.view.RxView;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.concurrent.TimeUnit;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 
 public class MainActivity extends BaseMvpActivity implements ILoginView {
 
@@ -38,11 +42,8 @@ public class MainActivity extends BaseMvpActivity implements ILoginView {
         loginPresenter.doLogin(etLoginUsername.getText().toString(),
                 etLoginPassword.getText().toString(),
                 1);
-    }
-
-    @OnClick(R.id.btn_login_clear)
-    public void clearClick(View view) {
-        loginPresenter.clear();
+        btnLoginLogin.setEnabled(true);
+        btnLoginClear.setEnabled(true);
     }
 
     private LoginPresenterImpl loginPresenter;
@@ -57,8 +58,8 @@ public class MainActivity extends BaseMvpActivity implements ILoginView {
     public void onLoginResult(Boolean result, String s) {
         btnLoginLogin.setEnabled(true);
         btnLoginClear.setEnabled(true);
-        startActivity(new Intent(this,SecondactActivity.class));
-        ToastUtils.showToast(this,s);
+        startActivity(new Intent(this, SecondactActivity.class));
+        ToastUtils.showToast(this, s);
     }
 
     @Override
@@ -68,15 +69,15 @@ public class MainActivity extends BaseMvpActivity implements ILoginView {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRecive(MyEvent event) {
-        ToastUtils.showToast(this,event.getMsg());
+        ToastUtils.showToast(this, event.getMsg());
     }
 
     @Override
     public void onError(String msg) {
         btnLoginLogin.setEnabled(true);
         btnLoginClear.setEnabled(true);
-        startActivity(new Intent(this,SecondactActivity.class));
-        ToastUtils.showToast(this,msg);
+        startActivity(new Intent(this, SecondactActivity.class));
+        ToastUtils.showToast(this, msg);
     }
 
     @Override
@@ -101,6 +102,14 @@ public class MainActivity extends BaseMvpActivity implements ILoginView {
         loginPresenter.setProgressBarVisiblity(View.INVISIBLE);
         etLoginUsername.setText(loginPresenter.getName());
         etLoginPassword.setText(loginPresenter.getPasswd());
+        RxView.clicks(btnLoginClear)
+                .throttleFirst(1, TimeUnit.SECONDS)
+                .subscribe(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object o) throws Exception {
+                        loginPresenter.clear();
+                    }
+                });
     }
 
     @Override

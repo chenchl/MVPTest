@@ -30,8 +30,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseAct
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         initBefore();
         super.onCreate(savedInstanceState);
-        setContentView(initXmlId());
-        unbinder = ButterKnife.bind(this);
         //沉浸式布局
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//5.0 全透明状态栏
             View decorView = getWindow().getDecorView();
@@ -43,11 +41,20 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseAct
             WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
             localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
         }
+        setContentView(initXmlId());
+        unbinder = ButterKnife.bind(this);
+
         AppManager.getInstance().addActivity(this);
         initView();
-        initdata();
+        //initdata();
         if (needEventBus)
             EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initdata();
     }
 
     @Override
