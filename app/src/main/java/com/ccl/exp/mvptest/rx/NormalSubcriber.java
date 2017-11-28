@@ -16,8 +16,14 @@ public abstract class NormalSubcriber<T> implements Subscriber<T> {
     private boolean isShowLoading = true;
     private Context mContext;
 
-    public NormalSubcriber(boolean isShowLoding, Context context, String tag) {
-        this.isShowLoading = isShowLoding;
+    /**
+     * 正常网络请求Subscriber
+     * @param isShowLoading 是否显示dialog
+     * @param context 当前窗口的context 注意不做其他事情防止泄露
+     * @param tag 请求标注 用于取消请求
+     */
+    public NormalSubcriber(boolean isShowLoading, Context context, String tag) {
+        this.isShowLoading = isShowLoading;
         mContext = context;
         this.tag = tag;
     }

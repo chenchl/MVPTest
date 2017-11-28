@@ -7,6 +7,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.ccl.exp.mvptest.R;
+import com.ccl.exp.mvptest.dagger.component.DaggerLoginActivityComponent;
+import com.ccl.exp.mvptest.dagger.module.LoginActivityModule;
 import com.ccl.exp.mvptest.event.MyEvent;
 import com.ccl.exp.mvptest.presenter.LoginPresenterImpl;
 import com.ccl.exp.mvptest.utils.ToastUtils;
@@ -17,6 +19,8 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -35,6 +39,10 @@ public class MainActivity extends BaseMvpActivity implements ILoginView {
     @BindView(R.id.progress_login)
     ProgressBar progressLogin;
 
+    @Inject
+    LoginPresenterImpl loginPresenter;
+
+
     @OnClick(R.id.btn_login_login)
     public void loginClick(View view) {
         btnLoginLogin.setEnabled(false);
@@ -45,8 +53,6 @@ public class MainActivity extends BaseMvpActivity implements ILoginView {
         btnLoginLogin.setEnabled(true);
         btnLoginClear.setEnabled(true);
     }
-
-    private LoginPresenterImpl loginPresenter;
 
     @Override
     public void onClearText() {
@@ -97,7 +103,10 @@ public class MainActivity extends BaseMvpActivity implements ILoginView {
 
     @Override
     public void initdata() {
-        loginPresenter = new LoginPresenterImpl(this);
+        DaggerLoginActivityComponent.builder()
+                .loginActivityModule(new LoginActivityModule(this))
+                .build().inject(this);
+        //loginPresenter = new LoginPresenterImpl(this);
         addPresenter(loginPresenter);
         loginPresenter.setProgressBarVisiblity(View.INVISIBLE);
         etLoginUsername.setText(loginPresenter.getName());
