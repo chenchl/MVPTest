@@ -128,7 +128,7 @@ public class MainActivity extends BaseMvpActivity implements ILoginView {
 
     @Override
     public String setTag() {
-        return "main";
+        return null;
     }
 
     @Override

@@ -25,11 +25,14 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseAct
 
     private Unbinder unbinder;
     protected boolean needEventBus = false;
+    protected String TAG = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        TAG = setTag() == null ? getClass().getSimpleName() : setTag();
         initBefore();
         super.onCreate(savedInstanceState);
+        LogUtil.i(TAG, "onCreate");
         //沉浸式布局
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//5.0 全透明状态栏
             View decorView = getWindow().getDecorView();
@@ -46,28 +49,34 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseAct
 
         AppManager.getInstance().addActivity(this);
         initView();
-        //initdata();
+        initdata();
         if (needEventBus)
             EventBus.getDefault().register(this);
     }
 
     @Override
     protected void onStart() {
+        LogUtil.i(TAG, "onStart");
         super.onStart();
-        initdata();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        LogUtil.i(this, "onResume");
+        LogUtil.i(TAG, "onResume");
         resume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LogUtil.i(TAG, "onPause");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        LogUtil.i(this, "onDestroy");
+        LogUtil.i(TAG, "onDestroy");
         if (needEventBus)
             EventBus.getDefault().unregister(this);
         if (unbinder != null) {

@@ -33,6 +33,7 @@ public abstract class BaseMvpActivity extends BaseActivity implements IBaseView 
         for (BasePresenter p : mPresenters) {
             p.cancelHttp();
             p.detach();
+            p = null;
         }
         mPresenters.clear();
         mPresenters = null;

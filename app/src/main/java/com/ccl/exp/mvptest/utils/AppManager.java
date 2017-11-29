@@ -30,7 +30,6 @@ public class AppManager {
                     instance.activityStack = new Stack();
                 }
             }
-
         }
         return instance;
     }
