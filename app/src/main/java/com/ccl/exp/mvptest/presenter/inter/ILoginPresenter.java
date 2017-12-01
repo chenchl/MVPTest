@@ -1,4 +1,4 @@
-package com.ccl.exp.mvptest.presenter;
+package com.ccl.exp.mvptest.presenter.inter;
 
 import com.ccl.exp.mvptest.net.params.PostParams;
 

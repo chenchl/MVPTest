@@ -158,6 +158,16 @@ public class SPUtils {
         return sp.getAll();
     }
 
+    /**
+     * 获取主题
+     *
+     * @return 夜间false 白天true
+     */
+    public boolean getTheme() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SharedType.EM_SETTING);
+        return sharedPreferences.getBoolean("theme", true);
+    }
+
 
     /**
      * 创建一个解决SharedPreferencesCompat.apply方法的一个兼容类

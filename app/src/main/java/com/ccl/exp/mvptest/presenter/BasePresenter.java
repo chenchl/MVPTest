@@ -12,6 +12,7 @@ public abstract class BasePresenter<V extends IBaseView> {
 
     public BasePresenter(V view) {
         this.mView = view;
+        initData();
     }
 
     public void detach() {
@@ -19,4 +20,6 @@ public abstract class BasePresenter<V extends IBaseView> {
     }
 
     public abstract void cancelHttp();
+
+    public abstract void initData();
 }

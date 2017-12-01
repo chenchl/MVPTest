@@ -7,6 +7,7 @@ import android.content.Context;
  */
 public enum SharedType {
 
+    EM_SETTING("EM_SETTING", Context.MODE_PRIVATE),
     EM_LOGIN("EM_LOGIN", Context.MODE_PRIVATE),
     EM_NOTIFY("EM_NOTIFY", Context.MODE_PRIVATE),
     EM_GONGLI("EM_GONGLI", Context.MODE_PRIVATE),

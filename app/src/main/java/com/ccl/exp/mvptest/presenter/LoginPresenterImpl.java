@@ -16,6 +16,7 @@ import com.ccl.exp.mvptest.net.RetrofitManager;
 import com.ccl.exp.mvptest.net.api.UserLogin;
 import com.ccl.exp.mvptest.net.params.PostParams;
 import com.ccl.exp.mvptest.net.response.BaseResponse;
+import com.ccl.exp.mvptest.presenter.inter.ILoginPresenter;
 import com.ccl.exp.mvptest.rx.NormalSubcriber;
 import com.ccl.exp.mvptest.rx.RxManager;
 import com.ccl.exp.mvptest.rx.RxSubscriptionManager;
@@ -39,10 +40,10 @@ public class LoginPresenterImpl extends BasePresenter<ILoginView> implements ILo
     public LoginPresenterImpl(ILoginView view) {
         super(view);
         handler = new Handler(Looper.getMainLooper());
-        initData();
     }
 
-    private void initData() {
+    @Override
+    public void initData() {
         user = new UserModel();
         user.setName("mvp");
         user.setPassword("123456");

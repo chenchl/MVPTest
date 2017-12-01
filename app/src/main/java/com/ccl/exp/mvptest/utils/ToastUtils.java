@@ -17,7 +17,7 @@ public class ToastUtils {
      * @param context
      * @param s
      */
-    public static void showToast(Context context, String s) {
+    public static void showToast(Context context, CharSequence s) {
         if (mToast == null) {
             mToast = Toast.makeText(context, s, Toast.LENGTH_SHORT);
         } else {
@@ -33,7 +33,7 @@ public class ToastUtils {
      * @param context
      * @param s
      */
-    public static void showLongToast(Context context, String s) {
+    public static void showLongToast(Context context, CharSequence s) {
         if (mToast == null) {
             mToast = Toast.makeText(context, s, Toast.LENGTH_LONG);
         } else {

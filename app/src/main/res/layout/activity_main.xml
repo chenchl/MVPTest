@@ -1,61 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_vertical"
-    android:background="@android:color/darker_gray"
-    android:orientation="vertical"
-    android:paddingBottom="8dp"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp"
-    android:paddingTop="8dp"
-    tools:context="com.ccl.exp.mvptest.ui.activity.MainActivity">
+    android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/et_login_username"
+    <FrameLayout
+        android:id="@+id/fl_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="USERNAME" />
-
-    <EditText
-        android:id="@+id/et_login_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="PASSWORD" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/y100" />
 
     <LinearLayout
+        android:id="@+id/ll_bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="@dimen/y100"
+        android:layout_alignParentBottom="true"
+        android:background="@color/bg_all"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="4">
 
-        <Button
-            android:id="@+id/btn_login_login"
-            android:layout_width="match_parent"
+        <com.ccl.exp.mvptest.widget.MyFragmentTabHost
+            android:id="@+id/main_tabhost"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="4dp"
-            android:layout_weight="1"
-            android:text="Login" />
-
-        <Button
-            android:id="@+id/btn_login_clear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_weight="1"
-            android:text="Clear" />
+            android:layout_weight="4" />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:text="correct user: mvp, mvp" />
-
-    <ProgressBar
-        android:id="@+id/progress_login"
+    <ImageView
+        android:id="@+id/iv_line"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp" />
-
-</LinearLayout>
+        android:layout_height="@dimen/x1"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/y99"
+        android:background="#d9d4bb" />
+</RelativeLayout>

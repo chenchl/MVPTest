@@ -1,7 +1,7 @@
 package com.ccl.exp.mvptest.dagger.component;
 
 import com.ccl.exp.mvptest.dagger.module.LoginActivityModule;
-import com.ccl.exp.mvptest.ui.activity.MainActivity;
+import com.ccl.exp.mvptest.ui.activity.LoginActivity;
 
 import dagger.Component;
 
@@ -11,5 +11,5 @@ import dagger.Component;
 @Component(modules = LoginActivityModule.class)
 public interface LoginActivityComponent {
 
-    void inject(MainActivity mainActivity);
+    void inject(LoginActivity loginActivity);
 }
