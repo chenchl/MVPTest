@@ -62,6 +62,17 @@ public class RxSubscriptionManager {
         maps.remove(tag);
     }
 
+    public boolean contains(Object tag) {
+        if (maps == null)
+            return false;
+        if (maps != null && maps.isEmpty())
+            return false;
+        if (maps != null && maps.containsKey(tag))
+            return true;
+        else
+            return false;
+    }
+
     public void cancelAll() {
         if (maps == null)
             return;

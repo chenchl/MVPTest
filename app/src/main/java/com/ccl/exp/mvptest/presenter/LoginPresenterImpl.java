@@ -81,7 +81,7 @@ public class LoginPresenterImpl extends BasePresenter<ILoginView> implements ILo
                 return;
             }
             String strUserPwd = passwd;
-            String version = CommonUtils.getVersion(GlobalApplication.getInstance().getApplicationContext());
+            String version = CommonUtils.getVersion();
             PostParams postParams = new PostParams();
             postParams.addParams("loginName", strUserName);
             postParams.addParams("deviceNumber", strDID);
